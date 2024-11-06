@@ -134,6 +134,13 @@ chmod +x script.sh
 ### 5. escalation privilege WINDOWS
 ## Important tools
 ### Burpsuite
+ #### 1. intruder
+ - allow to brut force with multiple wordlist
+ #### 2. repeater
+ #### 3. sequencer
+ #### 4. comparer
+ #### 5. macro
+send a request capture by proxy to modify manuely
 ### wireshark
 
   
