@@ -54,7 +54,7 @@ sudo nmap -sN -oG NOM_DU_FICHIER <IP address>
 - If a image look suspicious dowload it and use steganography
 ```bash
 binwalk <image.jpg>
-#allow to see if a other folder is hide in image
+#allow to see if a other folder is hide in image / does not work every time
 binwalk -e <image.jpg> 
 #extract hidden data
 stegide extract -sf <image.jpg> -p <passphrase>
@@ -83,7 +83,28 @@ enumeration of SMB server
 telnet <IP address> 22
 #use telnet (TCP/IP text) to communicate with ssh 
 ```
+#### 2.5 FTP enumeration
+- port 21 by default
+- if FTP is on anonymous mode user=anonymous pass=whateveryouwant
+```bash
+telnet <IP address> 21
+#use telnet (TCP/IP text) to communicate with FTP, tap ctrl+alt+] and quit to extract
+ftp <IP address> <port>
+USER or PASS to connect
+you can use ls and get FILENAME
+```
 ### 3. Exploit
+#### TOP 10 OWASP
+##### Top 1 Broken acces control
+##### Top 2 Cryptographics errors
+##### Top 3 injection breach
+##### Top 4 non-secure application
+##### Top 5 bad configuration
+##### Top 6 composant vulnerability
+##### Top 7 authentification failure
+##### Top 8 failure integrity data
+##### Top 9 journalisation defect
+##### Top 10 SSRF breach
 #### Reverse shell
 - reverse shell linux [hacktricks.xyz/reverse-shells/linux](https://book.hacktricks.xyz/generic-methodologies-and-resources/reverse-shells/linux)
 ```php
