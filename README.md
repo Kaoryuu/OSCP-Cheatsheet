@@ -81,7 +81,10 @@ enumeration of SMB server
 - port 22 by default
 ```bash
 telnet <IP address> 22
-#use telnet (TCP/IP text) to communicate with ssh 
+#use telnet (TCP/IP text) to communicate with ssh
+ssh <name>@<IP address>
+ssh -i ~/Path/to/id_rsa <name>@<IP address>
+#if you need to connect with key rsa
 ```
 #### 2.5 FTP enumeration
 - port 21 by default
