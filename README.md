@@ -100,6 +100,12 @@ you can use ls and get FILENAME
 #### 3.1 TOP 10 OWASP
 - important site recap [cheatsheetseries.owasp.org](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)  
   ##### Top 1 Broken acces control
+  - you need to try the website, change id user, know the ressource of site,.... 
+  - IDOR (insecure direct object reference) just modify :
+  ```bash
+  #change parameters post, change id, try and see the response of server 200,404,302 
+  http://example.com/user/"35" or http://example.com/user/file.php?image="4",...
+  ```
   ##### Top 2 Cryptographic failures
   ##### Top 3 injection breach
   ##### Top 4 non-secure application
