@@ -62,7 +62,7 @@ stegide extract -sf <image.jpg> -p <passphrase>
 stegseek <image.jpg> /usr/share/wordlists/rockyou.txt
 #brute force the password of date 
 ```
-- Common http directory `/robots.txt`,`/images`,`/admin`,`/bin`,`/cgi-bin`,`/stats`,`/icons`,`/doc`,`/docs`
+- Common http directory `/robots.txt`,`sitemap.xml`,`/images`,`/admin`,`/bin`,`/cgi-bin`,`/stats`,`/icons`,`/doc`,`/docs`
 - We can automatize enumeration 
 ```bash
 gobuster dir -u http://<IP address> -w /usr/share/worldist.txt -x txt,xml,js,css,html,php
@@ -107,7 +107,41 @@ you can use ls and get FILENAME
   http://example.com/user/"35" or http://example.com/user/file.php?image="4",...
   ```
   ##### Top 2 Cryptographic failures
+  - poor Cryptographic implementation, deprecied or insecure algorithm
+  - PNRG (Pseudo Random Génerator Number) sometime algorithm use to generate a random number for crypto is predictably (like random in python)
+  - Algorithms of simetric encryption :
+  ```test
+  AES 128,192,256 bits (secure, industrie standard)
+  RC6 (secure, but not a industrie standard)
+  DES 56bits key too small
+  3DES deprecied and replace by AES
+  RC4 not secure but fast
+  RC5 not secure but fast
+  ```
+  - Algorithms of asimetric encryption :
+  ```test
+  RSA 1024,2048,3072,4096bits (1024 not secure)
+  Diffie hellman (only use for exchange key)
+  ```
+  - Algorithms of hashage :
+  ```test
+  MD2, MD4, MD5, MD6 (not secure depricied)
+  SHA-1 (not secure depricied)
+  SHA-2 (224,256,384,512) secure
+  SHA-3 secure
+  RIPEMD (128,160,256,320) secure use in bitcoin
+  bcrypt: Variable-length hash, typically 22-34 characters long, with a salt value and a work factor (iterations).
+  PBKDF2: Variable-length hash, typically 32-64 characters long, with a salt value and a work factor (iterations).
+  Argon2: Variable-length hash, typically 32-64 characters long, with a salt value and a work factor (iterations).
+  ```
+  - Algorithms of HMAC :
+  ```bash
+  HS256, HS384 and HS512
+  ```
   ##### Top 3 injection breach
+  - Command injection
+  - XSS (Cross Site Scripting)
+  - SQL Injection
   ##### Top 4 non-secure application
   ##### Top 5 bad configuration
   ##### Top 6 composant vulnerability
