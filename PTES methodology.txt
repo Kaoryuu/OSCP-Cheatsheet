@@ -1,0 +1,70 @@
+1. Pre-Engagement Interactions
+This is a critical phase, as it sets the foundation for the entire penetration test. It involves communication between the penetration testing team and the client to define:
+
+Scope: What systems, networks, or applications will be tested? Are there specific IP ranges or domains that should be included or excluded?
+Goals and Objectives: What does the client want to achieve from the penetration test? Are they focused on identifying critical vulnerabilities, assessing the security posture, or testing compliance?
+Rules of Engagement (RoE): What is and isn’t allowed during the test? For example, are social engineering attacks permitted? Can the tester attempt to breach physical security, or is it limited to digital systems?
+Timeframe and Resources: How long will the test last? Are there specific times when testing should occur (e.g., during off-hours to avoid business disruption)?
+Legal and Compliance Issues: Clear agreement on what is acceptable and legal to test, especially when working with sensitive data or systems.
+This phase should end with a formal contract or agreement that outlines the scope, methodology, and expectations. Without this clear foundation, it can lead to misunderstandings or even legal issues down the line.
+
+2. Intelligence Gathering (Reconnaissance)
+This phase is all about gathering information about the target, and there are two types of reconnaissance:
+
+Passive Reconnaissance: Gathering information without interacting directly with the target system. This is typically done by leveraging publicly available data, such as:
+WHOIS records
+DNS records
+Open-source intelligence (OSINT) tools and public data sources (social media, job boards, etc.)
+Data leaks or breaches (check for sensitive information exposed publicly)
+Active Reconnaissance: Involves actively probing the target, which may alert the organization that a test is in progress. This includes:
+Scanning for open ports and services using tools like Nmap
+Identifying operating systems and services running on hosts
+Gathering network topology details
+The purpose of this phase is to build a comprehensive map of the target's attack surface. It helps identify potential weak spots, services to test, and information useful for crafting specific attacks.
+
+3. Threat Modeling
+After gathering intelligence, the next step is to analyze the information and identify possible threats. In this phase, the tester evaluates the data to anticipate likely attack vectors and assess risk. The goal is to:
+
+Identify Potential Attackers: Are the attackers internal (e.g., disgruntled employees) or external (e.g., hackers)? What tactics, techniques, and procedures (TTPs) could they use?
+Asset Identification: What are the critical systems, data, or services that could be of value to an attacker? This could include databases, intellectual property, or customer information.
+Attack Scenarios: What are the possible attack scenarios based on the information gathered? For example, an attacker might exploit a vulnerable web application, use phishing to steal credentials, or leverage an unpatched service to gain access.
+Effective threat modeling helps testers prioritize which vulnerabilities to target first based on the most likely and impactful threats.
+
+4. Vulnerability Analysis
+In this phase, the tester examines the systems and services discovered during the reconnaissance phase for known vulnerabilities. The goal is to identify weaknesses in the system that could be exploited. This includes:
+
+Manual Testing: Investigating systems for flaws that automated tools may not detect, such as misconfigurations, insecure coding practices, or poor security hygiene.
+Automated Scanning: Using vulnerability scanners like Nessus or OpenVAS to detect common vulnerabilities, outdated software, and missing patches.
+Configuration Issues: Looking for weak default configurations or overly permissive access controls.
+Third-Party Components: Analyzing software libraries or open-source components that may have known vulnerabilities.
+The key here is to create a list of potential vulnerabilities that could be used in the Exploitation phase.
+
+5. Exploitation
+This is where the tester attempts to actually exploit the vulnerabilities identified in the previous phase. The goal is to determine the level of access an attacker could achieve through these weaknesses. Exploitation may involve:
+
+Remote Exploits: Gaining access to systems via remote services (e.g., web application vulnerabilities, unpatched software).
+Local Exploits: Leveraging access to a system to escalate privileges or pivot to other systems.
+Social Engineering: Using techniques like phishing or pretexting to trick users into giving up sensitive information, clicking on malicious links, or running malicious code.
+Denial of Service (DoS): In some cases, testers may try to demonstrate the impact of a DoS attack (though it's typically avoided in production environments).
+Exploitation shows what an attacker could actually achieve with the vulnerabilities found and helps validate their severity.
+
+6. Post-Exploitation
+Once the tester has gained access, the goal is to understand the scope and potential impact of the breach. This phase involves:
+
+Lateral Movement: After gaining initial access to one system, the tester may attempt to move laterally across the network to other systems. This could include exploiting trust relationships between machines or systems.
+Privilege Escalation: Gaining higher levels of access, such as administrator or root access, which can provide full control of the system.
+Data Exfiltration: Attempting to extract sensitive data, like customer information, intellectual property, or confidential files.
+Persistence: Identifying ways to maintain access, such as installing backdoors or creating new user accounts.
+Post-exploitation allows testers to assess how deep an attacker could go in a network, the potential damage, and how difficult it would be for the attacker to cover their tracks or maintain access.
+
+7. Reporting
+After completing the testing phases, the tester creates a detailed report, which is a crucial part of the penetration testing process. The report typically includes:
+
+Executive Summary: A high-level overview of the test, including key findings and recommended actions for a non-technical audience.
+Detailed Findings: A comprehensive list of the vulnerabilities identified, including risk ratings (e.g., low, medium, high), technical details, and steps to reproduce.
+Exploitation Details: Information about successful exploits, including what was gained and how it was achieved.
+Recommendations: Specific remediation actions for each identified vulnerability, such as patching software, reconfiguring services, or enhancing security policies.
+A well-written report not only helps the client understand their security posture but also provides clear guidance on improving their defenses.
+
+Conclusion
+The PTES methodology provides a structured, repeatable process for penetration testing, which ensures that the test is thorough and covers all critical aspects of the target environment. By following these phases, penetration testers can identify vulnerabilities, simulate realistic attack scenarios, and help organizations strengthen their security defenses.
