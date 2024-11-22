@@ -1,6 +1,12 @@
 # OSCP-Cheatsheet
 The essential tools and procedure Kaoryu for OSCP  
 You can find important upload on top of page
+```bash
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+```
+```bash
+export TERM=xterm
+```
 ## Global RoadMap for Pentest _For Linux_
 ### 1. Passive recognition
  - Command helpful for passive recognition 
