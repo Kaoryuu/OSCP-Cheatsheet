@@ -140,6 +140,8 @@ you can use ls and get FILENAME
   HS256, HS384 and HS512
   ```
   ##### Top 3 injection breach
+  enumeration of entry point check all input of website, you can inject in cookies, in header
+  try to discover version of webapplication, linux or windows machine 
   - Command injection
   - XSS (Cross Site Scripting)
   - SQL Injection  
