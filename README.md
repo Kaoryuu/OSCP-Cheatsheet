@@ -150,6 +150,14 @@ cat /etc/crontab
 #list user crontrab (they can be modifed for be execute by root)
 ```
 - if there are SUID ou GUID look [gtfobins.io](https://gtfobins.github.io/)
+- You can cherche for a file .git and see commit.
+```bash
+# main command to interact with .git file
+git status
+git log
+git show <id_commit>
+```
+- If user have permission use sudo on python script, you can check if the script have an import, argument,...
 - for tansfer script or folder with server/attacker machine :
 ```bash
 # Local network
