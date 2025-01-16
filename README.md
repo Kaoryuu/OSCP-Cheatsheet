@@ -117,6 +117,7 @@ stty raw -echo; fg #foreground last processes in running
 ```
 #### 3.3 Password bruteforce  
 before bruteforce prefer to find a valid username because combination of bruteforce username and password is very very long  
+Hydra vs Medusa: hydra is more complexe but she have more flexibilities
 
 **Hydra services :**  
 | Service/Protocol                    | Example Command                                                                                               |
@@ -136,6 +137,20 @@ SSH multiple target
 ```bash
 hydra -l root -p toor -M targets.txt -s 6000 ssh #target.txt= list of all user IP ssh, -s change port
 ```
+
+**Medusa services :**  
+| Service/Protocol                    | Example Command                                                                                                            |
+|-------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| File Transfer Protocol (FTP)        | medusa -M ftp -h 192.168.1.100 -u admin -P passwords.txt                                                                   | 
+| Secure Shell (SSH)                  | medusa -M ssh -h 192.168.1.100 -u root -P passwords.txt                                                                    |
+| HTTP Web Services                   | medusa -M http -h www.example.com -U users.txt -P passwords.txt -m DIR:/login.php -m FORM:username=^USER^&password=^PASS^  |
+| TELNET                              | medusa -M telnet -h 192.168.1.100 -u admin -P passwords.txt                                                                |
+| Post Office Protocol (POP3)         | medusa -M pop3 -h mail.example.com -U users.txt -P passwords.txt                                                           |
+| Internet Message Access Protocol    | medusa -M imap -h mail.example.com -U users.txt -P passwords.txt                                                           |
+| MySQL Database                      | medusa -M mysql -h 192.168.1.100 -u root -P passwords.txt                                                                  |
+| Version Control System              | medusa -M svn -h 192.168.1.100 -u admin -P passwords.txt                                                                   |
+| Virtual Network Computing (VNC)     | medusa -M vnc -h 192.168.1.100 -P passwords.txt                                                                            |
+| Remote Desktop Protocol (RDP)       | medusa -M rdp -h 192.168.1.100 -u admin -P passwords.txt                                                                   |
 
 
 #### 3.4 Hashcracking
