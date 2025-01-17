@@ -153,6 +153,17 @@ hydra -l root -p toor -M targets.txt -s 6000 ssh #target.txt= list of all user I
 | Remote Desktop Protocol (RDP)       | medusa -M rdp -h 192.168.1.100 -u admin -P passwords.txt                                                                   |
 
 
+You can generate custom list of username and custom list of password with `cupp` and `username-anarchy`  
+```bash
+git clone https://github.com/urbanadventurer/username-anarchy.git
+./username-anarchy Jane Smith > jane_smith_usernames.txt
+
+#for password
+sudo apt install cupp -y
+cupp -i
+```
+
+
 #### 3.4 Hashcracking
 - Popular type of hash :
 ```test
