@@ -227,8 +227,8 @@ hascat hash.txt -m 3200 rockyou.txt
 ```
 ### 4. escalation privilege LINUX
 #### **Basic enumaration**
-- You need to search about kernel version, user and group, services, logs, host directory,.... 
-- look to the important location file in documents of this page
+You need to search about kernel version, user and group, services, logs, host directory,.... 
+look to the important location file in documents of this page
 ```bash
 uname -a
 #give name of host and kernel
@@ -243,22 +243,46 @@ find / -type f -perm -04000 -ls 2>/dev/null
 cat /etc/crontab
 #list user crontrab (they can be modifed for be execute by root)
 ```
-- if there are SUID ou GUID look [gtfobins.io](https://gtfobins.github.io/)
-- You can cherche for a file .git and see commit.
+if there are SUID ou GUID look [gtfobins.io](https://gtfobins.github.io/)  
+
+
+**GIT:**  
+You can cherche for a file .git and see commit.  
 ```bash
 # main command to interact with .git file
 git status
 git log
 git show <id_commit>
 ```
-- enumerate application running on localhost:
+
+
+**Application running on localhost:**  
 ```
 ss -tulpn
 netstat -tulp
 ps aux
 ```
-- can automatize enumeration system with [linpeas.sh](https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS) or [LinEnum.sh](https://github.com/rebootuser/LinEnum)  
-- PSPY64 is a good enumeration system, he permite to check in real time the running processes.  
+
+
+**Auto enum:**  
+can automatize enumeration system with [linpeas.sh](https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS) or [LinEnum.sh](https://github.com/rebootuser/LinEnum)  
+PSPY64 is a good enumeration system, he permite to check in real time the running processes.    
+
+
+**Keepass:**  
+Password manager (.kdb,.kdbx):  
+```bash
+kpcli --kdb Database.kdb
+kpcli> find .
+kpcli> show Path/example/ssh -f
+kpcli> attach Path/example/ssh
+```
+brut force password  
+```bash
+keepass2john Database.kdb
+```
+
+
 #### **Python esca**
 - If user have permission use sudo on python script, you can check if the script have an import, argument,...  
 ```python
