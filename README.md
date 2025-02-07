@@ -99,6 +99,16 @@ ssh <name>@<IP address>
 ssh -i ~/Path/to/id_rsa <name>@<IP address>
 #if you need to connect with key rsa
 ```
+**Port Forwarding**  
+ex: You can use port forwarding to analyze localhost wab applications. 
+```bash
+#attacker machine
+ssh -L <PORTUWANT>:127.0.0.1:<PORTWEBAPP> example@10.10.85.66
+ssh -L 4444:127.0.0.1:80 web1@10.10.85.66
+```
+Now you can analyze port forwarding in chrome://inspect > Discover network targets > 127.0.0.1:80
+![](Capture_d'écran_2025-02-07_081613.png)
+
 #### 2.5 FTP enumeration
 - port 21 by default
 - if FTP is on anonymous mode user=anonymous pass=whateveryouwant
@@ -108,6 +118,12 @@ telnet <IP address> 21
 ftp <IP address> <port>
 USER or PASS to connect
 you can use ls and get FILENAME
+```
+Sometimes ftp require a ssl connexion use lftp
+```
+lftp ftp://user:password@hostname
+#if you have a problem with certificate
+set ssl:verify-certificate false 
 ```
 ### 3. Exploit
 #### 3.2 Reverse shell
@@ -234,6 +250,12 @@ cat /etc/crontab
 git status
 git log
 git show <id_commit>
+```
+- enumerate application running on localhost:
+```
+ss -tulpn
+netstat -tulp
+ps aux
 ```
 - can automatize enumeration system with [linpeas.sh](https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS) or [LinEnum.sh](https://github.com/rebootuser/LinEnum)  
 - PSPY64 is a good enumeration system, he permite to check in real time the running processes.  
