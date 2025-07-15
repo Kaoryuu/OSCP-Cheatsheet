@@ -249,10 +249,9 @@ hascat hash.txt -m 3200 rockyou.txt
 You need to search about kernel version, user and group, services, logs, host directory,.... 
 look to the important location file in documents of this page
 ```bash
-uname -a
-#give name of host and kernel
-id
-#name and group user
+env
+uname -a #give name of host and kernel
+id #name and group user
 sudo -l
 #allow look if user have permission to use sudo
 getcap -r / 2>/dev/null
@@ -261,9 +260,15 @@ find / -type f -perm -04000 -ls 2>/dev/null
 #list folder with SUID or GUID
 cat /etc/crontab
 #list user crontrab (they can be modifed for be execute by root)
+ss -tulpn
+netstat -tulp
+ps aux
 ```
 if there are SUID ou GUID look [gtfobins.io](https://gtfobins.github.io/)  
 
+**Auto enum:**  
+can automatize enumeration system with [linpeas.sh](https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS) or [LinEnum.sh](https://github.com/rebootuser/LinEnum)  
+PSPY64 is a good enumeration system, he permite to check in real time the running processes.    
 
 **GIT:**  
 You can cherche for a file .git and see commit.  
@@ -274,19 +279,12 @@ git log
 git show <id_commit>
 ```
 
-
-**Application running on localhost:**  
+**Docker escape**
+Shit docker web application
 ```
-ss -tulpn
-netstat -tulp
-ps aux
+env
+mount
 ```
-
-
-**Auto enum:**  
-can automatize enumeration system with [linpeas.sh](https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS) or [LinEnum.sh](https://github.com/rebootuser/LinEnum)  
-PSPY64 is a good enumeration system, he permite to check in real time the running processes.    
-
 
 **Keepass:**  
 Password manager (.kdb,.kdbx):  
